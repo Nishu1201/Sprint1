@@ -79,11 +79,43 @@ public class BookApp {
 		 System.out.println("-----------------------------------------------");	
 
 			
-						}
+		 System.out.println("____WELCOME TO AUTHOR DETAILS___");
+
+         
+         AuthorDAO authorDAO = new AuthorDAO(em);
+
+        
+         Author author1 = new Author();
+         author1.setName("Jhumpa lahiri");
+
+         Author author2 = new Author();
+         author2.setName("JK Rowling");
+
+         authorDAO.saveAuthor(author1);
+         authorDAO.saveAuthor(author2);
+
+        
+         List<Author> allAuthors = authorDAO.findAllAuthors();
+         System.out.println("All Authors: " + allAuthors);
+
+         Author updatedAuthor = authorDAO.findAuthorById(1).orElse(null);
+         if (updatedAuthor != null) {
+             updatedAuthor.setName("Updated Author");
+             authorDAO.updateAuthor(updatedAuthor);
+         }
+
+       
+         authorDAO.removeAuthor(2);
+
+    
+         List<Author> updatedAuthors = authorDAO.findAllAuthors();
+         System.out.println("Updated Authors: " + updatedAuthors);
+			}
+		   
 		   
 				catch (HibernateException e) {
 							 e.printStackTrace();
-							// System.out.println(" Hibernate exception ");
+							
 						}
 				catch (Exception e) {
 						 e.printStackTrace();
